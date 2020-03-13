@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>【智能家居：二】HA添加各平台硬件及中文设置 | 420X297</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上一篇介绍了部署HA平台的过程，现在简单讲一下如何将各个平台的硬件添加到HA中。 HA是一个由全球开发者共同维护的开源智能家居平台，所以能够支持的硬件有很多，理论上只要支持第三方控制或者HTTP协议的智能家居产品都可以接入。 这一篇会涉及小米网关xiaomi_aqara、博联broadlink、sonos音箱、索尼bravia电视等的接入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【智能家居：二】HA添加各平台硬件及中文设置">
+<meta property="og:url" content="http://b.0522.xyz/2019/10/08/201910082/index.html">
+<meta property="og:site_name" content="420X297">
+<meta property="og:description" content="上一篇介绍了部署HA平台的过程，现在简单讲一下如何将各个平台的硬件添加到HA中。 HA是一个由全球开发者共同维护的开源智能家居平台，所以能够支持的硬件有很多，理论上只要支持第三方控制或者HTTP协议的智能家居产品都可以接入。 这一篇会涉及小米网关xiaomi_aqara、博联broadlink、sonos音箱、索尼bravia电视等的接入">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/Qcx2o6qm1ChRnZ4.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/Arb7FTMd9yzHZE3.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/xWdHR3wkfNtnazC.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/c25SNU83mKe7o9t.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/UiJhAG1uQLZe2qR.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/DhjLuFKTYgp5GIc.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/ocgZRBsErlvx6MV.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/NVeJdFqbGXl8gHC.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/8ibRNr7YoeqLBwC.png">
+<meta property="article:published_time" content="2019-10-07T17:04:48.000Z">
+<meta property="article:modified_time" content="2019-10-08T18:21:04.000Z">
+<meta property="article:author" content="Alston">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/08/Qcx2o6qm1ChRnZ4.png">
+  
+    <link rel="alternate" href="/atom.xml" title="420X297" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">420X297</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">间歇性写作综合征资深患者</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://b.0522.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-201910082" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/08/201910082/" class="article-date">
+  <time datetime="2019-10-07T17:04:48.000Z" itemprop="datePublished">2019-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tech/">Tech</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【智能家居：二】HA添加各平台硬件及中文设置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://b.0522.xyz/2019/10/08/20191008/">上一篇</a>介绍了部署HA平台的过程，现在简单讲一下如何将各个平台的硬件添加到HA中。</p>
+<p>HA是一个由全球开发者共同维护的开源智能家居平台，所以能够支持的硬件有很多，理论上只要支持第三方控制或者HTTP协议的智能家居产品都可以接入。</p>
+<p>这一篇会涉及小米网关xiaomi_aqara、博联broadlink、sonos音箱、索尼bravia电视等的接入</p>
+<p><img src="https://i.loli.net/2019/10/08/Qcx2o6qm1ChRnZ4.png" alt="微信截图_20191008010403.png"></p>
+<a id="more"></a>
+
+
+
+<h1 id="配置文件的习惯"><a href="#配置文件的习惯" class="headerlink" title="配置文件的习惯"></a>配置文件的习惯</h1><p>这里插入一个我个人关于HA平台配置文件configura.yaml的功能，就是可以将不同的component的内容赋值到不同的yaml文件，这样可以保证configuration文件的内容不出故障，尽量不影响启动。</p>
+<p>比如原本的配置文件就是在configuration.yaml中进行配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">configuration:</span></span><br><span class="line">  <span class="attr">xiaomi_aqara:</span></span><br><span class="line">    <span class="attr">discovery_retry:</span> <span class="number">5</span></span><br><span class="line">    <span class="attr">gateways:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">xxxxxxxxxxxxxxx</span></span><br><span class="line">  <span class="attr">broadlink:</span></span><br><span class="line">    <span class="attr">switch:</span> <span class="string">xxxxxxxxx</span></span><br><span class="line">  <span class="attr">mqtt:</span></span><br><span class="line">    <span class="attr">mqtt_server:</span> <span class="string">xxxxxx</span></span><br><span class="line">    <span class="attr">mqtt_passwd:</span> <span class="string">xxxxxx</span></span><br></pre></td></tr></table></figure>
+
+<p>现在可以改成</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">configuration:</span></span><br><span class="line">  <span class="attr">xiaomi_aqara:</span> <span class="type">!include</span> <span class="string">xiaomi.yaml</span></span><br><span class="line">  <span class="attr">broadlink:</span> <span class="type">!include</span> <span class="string">br.yaml</span></span><br><span class="line">  <span class="attr">mqtt:</span> <span class="type">!include</span> <span class="string">mqtt.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>然后另外新建xiaomi.yaml、br.yaml等文件，将配置文件单独添加到对应的yaml文件中</p>
+<h1 id="接入小米网关"><a href="#接入小米网关" class="headerlink" title="接入小米网关"></a>接入小米网关</h1><p>HA官网关于<a href="https://www.home-assistant.io/integrations/xiaomi_aqara/" target="_blank" rel="noopener">小米网关</a>的资料 </p>
+<p>也可以登录墨兰大美女整理的表格，查看哪些设备是支持ha的，这时你就会发现小米的智能家居生态有多庞大，表格中的大部分支持米家的产品也都支持HA，就算不能接入HA，米家也是一个足够庞大足够完整的智能家居生态。</p>
+<h2 id="只有一个小米网关的情况"><a href="#只有一个小米网关的情况" class="headerlink" title="只有一个小米网关的情况"></a>只有一个小米网关的情况</h2><h3 id="获取密码"><a href="#获取密码" class="headerlink" title="获取密码"></a>获取密码</h3><p>打开米家app，点击右上角的菜单，点关于，然后在底下的空白处连续点击五下，就会出现隐藏菜单，然后点击局域网通信协议，打开开关，并记录密码。</p>
+<h3 id="添加进HA"><a href="#添加进HA" class="headerlink" title="添加进HA"></a>添加进HA</h3><p>在configuration.yaml中添加</p>
+<blockquote>
+<p> xiaomi_aqara: !include xiaomi.yaml</p>
+</blockquote>
+<p>然后新建一个xiaomi.yaml</p>
+<p>复制代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">discovery_retry: 5</span><br><span class="line">gateways:</span><br><span class="line">  - key: xxxxxxxxxxxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>xxxxxxxxx就是从米家app中复制的局域网通信协议密码</p>
+<h3 id="重启HA"><a href="#重启HA" class="headerlink" title="重启HA"></a>重启HA</h3><p>代码复制完，保存两个yaml文件，重启ha</p>
+<p>添加完网关之后，连接在网关上的所有zigbee设备包括开关和传感器都会自动添加，通过wifi或者蓝牙连接的设备还需要另外设置，详见《【智能家居：三】小米非网关设备连接》</p>
+<h1 id="接入博联"><a href="#接入博联" class="headerlink" title="接入博联"></a>接入博联</h1><p>博联这个牌子，我从2012年就开始用，从最早的rm-home开始，那时候还不支持315/433射频，也没有S1，SP系列智能开关等等，现在真是啥都有了，但是app真的是越做越烂。关于博联的智能开关，除了官方原版，我只用过京东定制版，不支持第三方控制也就是无法接入HA。即便自身平台生态稀烂，博联由于出色的第三方控制，我也一直非常喜欢用。</p>
+<p>博联的产品里我现在在用的主要是红外遥控用的黑豆和支持大功率电器的智能开关sp-mini</p>
+<p>翻看官网关于broadlink设备的<a href="https://www.home-assistant.io/integrations/broadlink/" target="_blank" rel="noopener">文档</a></p>
+<h2 id="智能开关-SP-MINI"><a href="#智能开关-SP-MINI" class="headerlink" title="智能开关 SP-MINI"></a>智能开关 SP-MINI</h2><p>不知道什么原因，我的设备一直没办法成功在博联自己的app（e控、智慧星）中注册，但是可以连接到wifi，所以不影响第三方控制，这里需要进入路由器，找到博联设备的IP地址和MAC地址，然后添加到ha的配置中。</p>
+<h3 id="路由器界面"><a href="#路由器界面" class="headerlink" title="路由器界面"></a>路由器界面</h3><p>在用户端列表中找到broadlink开头的设备，都有详细的设备名称</p>
+<p><img src="https://i.loli.net/2019/10/08/Arb7FTMd9yzHZE3.png" alt="微信截图_20191008013905.png"></p>
+<h3 id="添加进HA-1"><a href="#添加进HA-1" class="headerlink" title="添加进HA"></a>添加进HA</h3><p>在configuration.yaml中添加</p>
+<blockquote>
+<p> switch: !include switch.yaml</p>
+</blockquote>
+<p>然后新建一个switch.yaml</p>
+<p>复制代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- platform: broadlink</span><br><span class="line">  host: 192.168.1.151</span><br><span class="line">  mac: &#39;34:EA:34:XX:XX:XX&#39;</span><br><span class="line">  type: spmini2</span><br></pre></td></tr></table></figure>
+
+<p>注意： type这一项是设备的型号，可选项有很多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm, rm2, rm_mini, rm_pro_phicomm, rm2_home_plus, rm2_home_plus_gdt, rm2_pro_plus, rm2_pro_plus2, rm2_pro_plus_bl, rm_mini_shate, sp1, sp2, honeywell_sp2, sp3, spmini2, spminiplus or mp1. SC1 devices can be registered as sp2.</span><br></pre></td></tr></table></figure>
+
+<h2 id="红外遥控RM-mini"><a href="#红外遥控RM-mini" class="headerlink" title="红外遥控RM-mini"></a>红外遥控RM-mini</h2><p>黑豆体积小，功耗低，在我眼里远远比小米那个智能遥控好用，只不过现在基本不用了，但还是记录一下吧</p>
+<p>红外遥控的设备，添加之后还要学码，HA在这方面的支持做的很到位。</p>
+<h3 id="添加进HA-2"><a href="#添加进HA-2" class="headerlink" title="添加进HA"></a>添加进HA</h3><p>同样在switch.yaml下添加以下代码，用自己设备的IP和mac地址替换。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">platform:</span> <span class="string">broadlink</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line">  <span class="attr">mac:</span> <span class="string">'B4:43:0D:CC:0F:58'</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">15</span></span><br><span class="line">  <span class="attr">retry:</span> <span class="number">5</span></span><br><span class="line">  <span class="attr">switches:</span></span><br><span class="line">    <span class="comment"># Will work on most Phillips TVs:</span></span><br><span class="line">    <span class="attr">tv_phillips:</span></span><br><span class="line">      <span class="attr">friendly_name:</span> <span class="string">"Phillips Tv Power"</span></span><br><span class="line">      <span class="attr">command_on:</span> <span class="string">'JgAcAB0dHB44HhweGx4cHR06HB0cHhwdHB8bHhwADQUAAAAAAAAAAAAAAAA='</span></span><br><span class="line">      <span class="attr">command_off:</span> <span class="string">'JgAaABweOR4bHhwdHB4dHRw6HhsdHR0dOTocAA0FAAAAAAAAAAAAAAAAAAA='</span></span><br></pre></td></tr></table></figure>
+
+<p>switches：后面的内容也也要复制，不然有可能会添加失败。等学了别的码之后再替换掉就行了</p>
+<p>和智能开关的配置内容差不多，只是要加入学码的内容。</p>
+<h1 id="Sonos智能音箱"><a href="#Sonos智能音箱" class="headerlink" title="Sonos智能音箱"></a>Sonos智能音箱</h1><p>这东西就太简单了，只要之前在app中设置好，打开HA的web界面就能无脑添加进去。</p>
+<p><img src="https://i.loli.net/2019/10/08/xWdHR3wkfNtnazC.png" alt="1570470657572.png"></p>
+<p><img src="https://i.loli.net/2019/10/08/c25SNU83mKe7o9t.png" alt="1570470649709.png"></p>
+<p><img src="https://i.loli.net/2019/10/08/UiJhAG1uQLZe2qR.png" alt="1570470678800.png"></p>
+<h1 id="SONY-BRAVIA电视"><a href="#SONY-BRAVIA电视" class="headerlink" title="SONY BRAVIA电视"></a>SONY BRAVIA电视</h1><p>2013年以后生产的bravia系列电视机，都支持局域网控制协议，在<a href="https://www.home-assistant.io/integrations/braviatv/" target="_blank" rel="noopener">官网文档</a>可以找到相关的资料</p>
+<h2 id="路由器界面-1"><a href="#路由器界面-1" class="headerlink" title="路由器界面"></a>路由器界面</h2><p>同样的，需要在路由器界面或者电视机的设置中找到电视的IP</p>
+<h2 id="添加进HA-3"><a href="#添加进HA-3" class="headerlink" title="添加进HA"></a>添加进HA</h2><p>添加到HA配置文件的media_player中</p>
+<p><img src="https://i.loli.net/2019/10/08/DhjLuFKTYgp5GIc.png" alt="1570471431280.png"></p>
+<h2 id="web界面设置"><a href="#web界面设置" class="headerlink" title="web界面设置"></a>web界面设置</h2><p>打开HA的web界面，就会看到多出来一个配置器选项，可以添加索尼电视</p>
+<p><img src="https://i.loli.net/2019/10/08/ocgZRBsErlvx6MV.png" alt="微信截图_20191008013905.png"></p>
+<p>点击右边蓝色的配置，电视上就会跳出一个四位数的验证码，输入到web界面中即可完成添加。</p>
+<p><img src="https://i.loli.net/2019/10/08/NVeJdFqbGXl8gHC.png" alt="微信截图_20191008020841.png"></p>
+<p>添加成功之后，电视就能执行一些比较基础的操作，如开关机，调音量，切换信号源等</p>
+<p><img src="https://i.loli.net/2019/10/08/8ibRNr7YoeqLBwC.png" alt="微信截图_20191008021006.png"></p>
+<h2 id="电视设置"><a href="#电视设置" class="headerlink" title="电视设置"></a>电视设置</h2><p>如果不会自动跳出的话，可能是电视的设置没有打开</p>
+<p>打开电视机，主菜单&gt;设置&gt;网络&gt;远程设备设置，开启远程控制的开关即可。</p>
+<h1 id="中文名称"><a href="#中文名称" class="headerlink" title="中文名称"></a>中文名称</h1><p>HA中添加的所有设备都是英文的，所以只能自行添加中文名，这里会用到configuration.yaml文件中提到的customize文件</p>
+<p>具体格式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">硬件名称:</span><br><span class="line">  friendly_name: 中文名称</span><br></pre></td></tr></table></figure>
+
+<p>同时，customize文件中也可以设定很多其他选项，</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">switch_broadlink1:</span><br><span class="line">  friendly_name: 书房电蚊香开关</span><br><span class="line">  hidden: true</span><br><span class="line">  icon: mdi:bug</span><br><span class="line">  group: room2</span><br></pre></td></tr></table></figure>
+
+<p>可以设置的内容很多，如果是自定义的传感器，还可以通过customize文件定义传感器类型。详见<a href="https://www.home-assistant.io/docs/configuration/customizing-devices/" target="_blank" rel="noopener">官方文档</a></p>
+<hr>
+<p><a href="http://b.0522.xyz/2019/10/08/201910083/">下一篇</a>为大家介绍MQTT平台和设备的添加，这是HA最牛逼的地方，各种DIY大神各显神通，为智能家居创造了更多的可能。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://b.0522.xyz/2019/10/08/201910082/" data-id="ck7qj4wy8005bpwwb0jbzfb11" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/09/201910083/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          【智能家居：三】小米非网关设备连接
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/08/20191008/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">【智能家居：一】树莓派部署home-assistant平台</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Arch/">Arch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Handmade/">Handmade</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tech/">Tech</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tips/">Tips</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3341/" rel="tag">3341</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/" rel="tag">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apple/" rel="tag">Apple</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chinese/" rel="tag">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Japan/" rel="tag">Japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korea/" rel="tag">Korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korean/" rel="tag">Korean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/" rel="tag">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MBP/" rel="tag">MBP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Macbook/" rel="tag">Macbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PC/" rel="tag">PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tech/" rel="tag">Tech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yeosu/" rel="tag">Yeosu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinadns/" rel="tag">chinadns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deteil/" rel="tag">deteil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handmade/" rel="tag">handmade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiwifi/" rel="tag">hiwifi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homeassistant/" rel="tag">homeassistant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebridge/" rel="tag">homebridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homekit/" rel="tag">homekit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hotel/" rel="tag">hotel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iPhone/" rel="tag">iPhone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/korea/" rel="tag">korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lego/" rel="tag">lego</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/momentum/" rel="tag">momentum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nas/" rel="tag">nas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openwrt/" rel="tag">openwrt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/orangepi/" rel="tag">orangepi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruijie/" rel="tag">ruijie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ryzen/" rel="tag">ryzen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sennheiser/" rel="tag">sennheiser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shadowsocks/" rel="tag">shadowsocks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonos/" rel="tag">sonos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synology/" rel="tag">synology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tour/" rel="tag">tour</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vultr/" rel="tag">vultr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/win10/" rel="tag">win10</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wood/" rel="tag">wood</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E4%B9%A0/" rel="tag">实习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" rel="tag">异地恋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" rel="tag">智能家居</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%A9%E5%9B%BD/" rel="tag">韩国</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/3341/" style="font-size: 12.5px;">3341</a> <a href="/tags/AMD/" style="font-size: 10px;">AMD</a> <a href="/tags/Apple/" style="font-size: 10px;">Apple</a> <a href="/tags/Chinese/" style="font-size: 10px;">Chinese</a> <a href="/tags/Japan/" style="font-size: 10px;">Japan</a> <a href="/tags/Korea/" style="font-size: 15px;">Korea</a> <a href="/tags/Korean/" style="font-size: 15px;">Korean</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/MBP/" style="font-size: 10px;">MBP</a> <a href="/tags/Macbook/" style="font-size: 10px;">Macbook</a> <a href="/tags/PC/" style="font-size: 10px;">PC</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/Yeosu/" style="font-size: 10px;">Yeosu</a> <a href="/tags/arch/" style="font-size: 20px;">arch</a> <a href="/tags/chinadns/" style="font-size: 10px;">chinadns</a> <a href="/tags/deteil/" style="font-size: 10px;">deteil</a> <a href="/tags/handmade/" style="font-size: 15px;">handmade</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/homeassistant/" style="font-size: 20px;">homeassistant</a> <a href="/tags/homebridge/" style="font-size: 17.5px;">homebridge</a> <a href="/tags/homekit/" style="font-size: 15px;">homekit</a> <a href="/tags/hotel/" style="font-size: 10px;">hotel</a> <a href="/tags/iPhone/" style="font-size: 10px;">iPhone</a> <a href="/tags/korea/" style="font-size: 10px;">korea</a> <a href="/tags/lego/" style="font-size: 12.5px;">lego</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/momentum/" style="font-size: 10px;">momentum</a> <a href="/tags/nas/" style="font-size: 12.5px;">nas</a> <a href="/tags/openwrt/" style="font-size: 10px;">openwrt</a> <a href="/tags/orangepi/" style="font-size: 15px;">orangepi</a> <a href="/tags/ruijie/" style="font-size: 10px;">ruijie</a> <a href="/tags/ryzen/" style="font-size: 10px;">ryzen</a> <a href="/tags/sennheiser/" style="font-size: 10px;">sennheiser</a> <a href="/tags/shadowsocks/" style="font-size: 15px;">shadowsocks</a> <a href="/tags/sonos/" style="font-size: 10px;">sonos</a> <a href="/tags/synology/" style="font-size: 12.5px;">synology</a> <a href="/tags/tour/" style="font-size: 10px;">tour</a> <a href="/tags/ubuntu/" style="font-size: 12.5px;">ubuntu</a> <a href="/tags/vultr/" style="font-size: 10px;">vultr</a> <a href="/tags/win10/" style="font-size: 10px;">win10</a> <a href="/tags/windows/" style="font-size: 12.5px;">windows</a> <a href="/tags/wood/" style="font-size: 15px;">wood</a> <a href="/tags/%E5%AE%9E%E4%B9%A0/" style="font-size: 12.5px;">实习</a> <a href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" style="font-size: 10px;">异地恋</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" style="font-size: 12.5px;">智能家居</a> <a href="/tags/%E9%9F%A9%E5%9B%BD/" style="font-size: 10px;">韩国</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/20/20191020/">【智能家居：五】自定义对象及分组</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/20191009/">【智能家居：四】将MQTT设备加入HA平台</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/201910083/">【智能家居：三】小米非网关设备连接</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/201910082/">【智能家居：二】HA添加各平台硬件及中文设置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/20191008/">【智能家居：一】树莓派部署home-assistant平台</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alston<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

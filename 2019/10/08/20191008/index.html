@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>【智能家居：一】树莓派部署home-assistant平台 | 420X297</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="出去旅游几天回来发现树莓派上的内存卡废了，只好重新画大力气再部署一遍智能家居，想起来上次这样折腾已经是半年前了吧。因此我认为HA这种平台还是需要有一定动手能力，半年崩盘这种事情，一般人应该受不了，而且取决于内存卡的寿命，一切都很难讲。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【智能家居：一】树莓派部署home-assistant平台">
+<meta property="og:url" content="http://b.0522.xyz/2019/10/08/20191008/index.html">
+<meta property="og:site_name" content="420X297">
+<meta property="og:description" content="出去旅游几天回来发现树莓派上的内存卡废了，只好重新画大力气再部署一遍智能家居，想起来上次这样折腾已经是半年前了吧。因此我认为HA这种平台还是需要有一定动手能力，半年崩盘这种事情，一般人应该受不了，而且取决于内存卡的寿命，一切都很难讲。">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/OJsnAhdjE5RGpbr.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/DPoMJBgXyneWuF3.png">
+<meta property="article:published_time" content="2019-10-07T16:02:04.000Z">
+<meta property="article:modified_time" content="2019-10-07T18:19:50.000Z">
+<meta property="article:author" content="Alston">
+<meta property="article:tag" content="Tech">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/08/OJsnAhdjE5RGpbr.png">
+  
+    <link rel="alternate" href="/atom.xml" title="420X297" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">420X297</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">间歇性写作综合征资深患者</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://b.0522.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20191008" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/08/20191008/" class="article-date">
+  <time datetime="2019-10-07T16:02:04.000Z" itemprop="datePublished">2019-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tech/">Tech</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【智能家居：一】树莓派部署home-assistant平台
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>出去旅游几天回来发现树莓派上的内存卡废了，只好重新画大力气再部署一遍智能家居，想起来上次这样折腾已经是半年前了吧。因此我认为HA这种平台还是需要有一定动手能力，半年崩盘这种事情，一般人应该受不了，而且取决于内存卡的寿命，一切都很难讲。</p>
+<a id="more"></a>
+
+<h1 id="固件"><a href="#固件" class="headerlink" title="固件"></a>固件</h1><h2 id="下载固件"><a href="#下载固件" class="headerlink" title="下载固件"></a>下载固件</h2><p>官网下载最新固件，用etcher或者win32diskmgr烧录到内存卡上。</p>
+<h2 id="烧录"><a href="#烧录" class="headerlink" title="烧录"></a>烧录</h2><p>烧录完成后，<strong>创建一个空白文件命名为ssh拷贝进内存卡的根目录下，用以开启ssh功能。</strong></p>
+<h1 id="首次启动"><a href="#首次启动" class="headerlink" title="首次启动"></a>首次启动</h1><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><blockquote>
+<p>sudo raspi-config</p>
+</blockquote>
+<p>进入初始配置，改个密码，改个时区，扩大一下系统空间，其他改不改都无所谓，然后输入</p>
+<blockquote>
+<p>sudo reboot</p>
+</blockquote>
+<p>重启树莓派</p>
+<h2 id="首次更新"><a href="#首次更新" class="headerlink" title="首次更新"></a>首次更新</h2><blockquote>
+<p>sudo apt-get update</p>
+<p>sudo apt-get upgrade</p>
+</blockquote>
+<p>一套基本更新和升级，</p>
+<h2 id="安装samba"><a href="#安装samba" class="headerlink" title="安装samba"></a>安装samba</h2><p>由于每次换源之后，都没办法正常安装samba，所以在换源之前就要先把samba安装清楚</p>
+<blockquote>
+<p>apt-get install libcups2 samba samba-common cups</p>
+<p>apt-get install samba</p>
+</blockquote>
+<p>安装完成后编辑samba配置，加入root文件夹。</p>
+<blockquote>
+<p> sudo nano /etc/samba/smb.conf</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root]</span><br><span class="line">    comment &#x3D; Admin Config Share</span><br><span class="line">    path &#x3D; &#x2F;</span><br><span class="line">    valid users &#x3D; root</span><br><span class="line">    force user &#x3D; root</span><br><span class="line">    force group &#x3D; root</span><br><span class="line">    admin users &#x3D; root   </span><br><span class="line">    writeable &#x3D; Yes</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>sudo smbpasswd -a root<br>sudo systemctl restart smbd.service</p>
+</blockquote>
+<p>大功告成~！</p>
+<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="添加docker官方GPG-key"><a href="#添加docker官方GPG-key" class="headerlink" title="添加docker官方GPG key"></a>添加docker官方GPG key</h2><blockquote>
+<p>curl -fsSL <a href="https://download.docker.com/linux/$" target="_blank" rel="noopener">https://download.docker.com/linux/$</a>(. /etc/os-release; echo “$ID”)/gpg | sudo apt-key add -</p>
+</blockquote>
+<h2 id="添加-Docker-CE-仓库"><a href="#添加-Docker-CE-仓库" class="headerlink" title="添加 Docker CE 仓库"></a>添加 Docker CE 仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb [arch&#x3D;armhf] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;debian \</span><br><span class="line">      $(lsb_release -cs) stable&quot; | \</span><br><span class="line">     sudo tee &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;docker.list</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装docker-ce"><a href="#安装docker-ce" class="headerlink" title="安装docker-ce"></a>安装docker-ce</h2><blockquote>
+<p>sudo apt-get update<br>sudo apt-get install docker-ce<br>sudo usermod -aG docker $USER</p>
+</blockquote>
+<h2 id="增加-Docker-仓库镜像"><a href="#增加-Docker-仓库镜像" class="headerlink" title="增加 Docker 仓库镜像"></a>增加 Docker 仓库镜像</h2><blockquote>
+<p>sudo nano /etc/docker/daemon.json</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="部署home-assistant"><a href="#部署home-assistant" class="headerlink" title="部署home-assistant"></a>部署home-assistant</h1><h2 id="复制代码，进入root账户"><a href="#复制代码，进入root账户" class="headerlink" title="复制代码，进入root账户"></a>复制代码，进入root账户</h2><blockquote>
+<p>sudo -i<br>apt-get install software-properties-common<br>add-apt-repository universe<br>apt-get update<br>apt-get install -y apparmor-utils apt-transport-https avahi-daemon ca-certificates curl dbus jq network-manager socat<br>curl -fsSL get.docker.com | sh</p>
+</blockquote>
+<h2 id="树莓派3-输入"><a href="#树莓派3-输入" class="headerlink" title="树莓派3 输入"></a>树莓派3 输入</h2><blockquote>
+<p>curl -sL “<a href="https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh&quot;" target="_blank" rel="noopener">https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh&quot;</a> | bash -s – -m raspberrypi3</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/10/08/OJsnAhdjE5RGpbr.png" alt="1570467350648.png"></p>
+<h2 id="打开浏览器，输入树莓派IP-端口号8123-http-192-168-1-2-8123"><a href="#打开浏览器，输入树莓派IP-端口号8123-http-192-168-1-2-8123" class="headerlink" title="打开浏览器，输入树莓派IP+端口号8123( http://192.168.1.2:8123)"></a>打开浏览器，输入树莓派IP+端口号8123( <a href="http://192.168.1.2:8123" target="_blank" rel="noopener">http://192.168.1.2:8123</a>)</h2><p><img src="https://i.loli.net/2019/10/08/DPoMJBgXyneWuF3.png" alt="1570467482011.png"></p>
+<p>看到这个页面，说明Home-Assistant部署完成，接下去就是配置各种硬件了。详见下一篇<a href="http://b.0522.xyz/2019/10/08/201910082/">《【智能家居：二】HA添加各平台硬件及中文设置》</a>！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://b.0522.xyz/2019/10/08/20191008/" data-id="ck7qj4wy8005dpwwb4ueb1q36" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tech/" rel="tag">Tech</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/08/201910082/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          【智能家居：二】HA添加各平台硬件及中文设置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/29/20190329/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">职业生涯的阶段性总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Arch/">Arch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Handmade/">Handmade</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tech/">Tech</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tips/">Tips</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3341/" rel="tag">3341</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/" rel="tag">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apple/" rel="tag">Apple</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chinese/" rel="tag">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Japan/" rel="tag">Japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korea/" rel="tag">Korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korean/" rel="tag">Korean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/" rel="tag">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MBP/" rel="tag">MBP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Macbook/" rel="tag">Macbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PC/" rel="tag">PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tech/" rel="tag">Tech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yeosu/" rel="tag">Yeosu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinadns/" rel="tag">chinadns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deteil/" rel="tag">deteil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handmade/" rel="tag">handmade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiwifi/" rel="tag">hiwifi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homeassistant/" rel="tag">homeassistant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebridge/" rel="tag">homebridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homekit/" rel="tag">homekit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hotel/" rel="tag">hotel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iPhone/" rel="tag">iPhone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/korea/" rel="tag">korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lego/" rel="tag">lego</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/momentum/" rel="tag">momentum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nas/" rel="tag">nas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openwrt/" rel="tag">openwrt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/orangepi/" rel="tag">orangepi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruijie/" rel="tag">ruijie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ryzen/" rel="tag">ryzen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sennheiser/" rel="tag">sennheiser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shadowsocks/" rel="tag">shadowsocks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonos/" rel="tag">sonos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synology/" rel="tag">synology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tour/" rel="tag">tour</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vultr/" rel="tag">vultr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/win10/" rel="tag">win10</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wood/" rel="tag">wood</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E4%B9%A0/" rel="tag">实习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" rel="tag">异地恋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" rel="tag">智能家居</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%A9%E5%9B%BD/" rel="tag">韩国</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/3341/" style="font-size: 12.5px;">3341</a> <a href="/tags/AMD/" style="font-size: 10px;">AMD</a> <a href="/tags/Apple/" style="font-size: 10px;">Apple</a> <a href="/tags/Chinese/" style="font-size: 10px;">Chinese</a> <a href="/tags/Japan/" style="font-size: 10px;">Japan</a> <a href="/tags/Korea/" style="font-size: 15px;">Korea</a> <a href="/tags/Korean/" style="font-size: 15px;">Korean</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/MBP/" style="font-size: 10px;">MBP</a> <a href="/tags/Macbook/" style="font-size: 10px;">Macbook</a> <a href="/tags/PC/" style="font-size: 10px;">PC</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/Yeosu/" style="font-size: 10px;">Yeosu</a> <a href="/tags/arch/" style="font-size: 20px;">arch</a> <a href="/tags/chinadns/" style="font-size: 10px;">chinadns</a> <a href="/tags/deteil/" style="font-size: 10px;">deteil</a> <a href="/tags/handmade/" style="font-size: 15px;">handmade</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/homeassistant/" style="font-size: 20px;">homeassistant</a> <a href="/tags/homebridge/" style="font-size: 17.5px;">homebridge</a> <a href="/tags/homekit/" style="font-size: 15px;">homekit</a> <a href="/tags/hotel/" style="font-size: 10px;">hotel</a> <a href="/tags/iPhone/" style="font-size: 10px;">iPhone</a> <a href="/tags/korea/" style="font-size: 10px;">korea</a> <a href="/tags/lego/" style="font-size: 12.5px;">lego</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/momentum/" style="font-size: 10px;">momentum</a> <a href="/tags/nas/" style="font-size: 12.5px;">nas</a> <a href="/tags/openwrt/" style="font-size: 10px;">openwrt</a> <a href="/tags/orangepi/" style="font-size: 15px;">orangepi</a> <a href="/tags/ruijie/" style="font-size: 10px;">ruijie</a> <a href="/tags/ryzen/" style="font-size: 10px;">ryzen</a> <a href="/tags/sennheiser/" style="font-size: 10px;">sennheiser</a> <a href="/tags/shadowsocks/" style="font-size: 15px;">shadowsocks</a> <a href="/tags/sonos/" style="font-size: 10px;">sonos</a> <a href="/tags/synology/" style="font-size: 12.5px;">synology</a> <a href="/tags/tour/" style="font-size: 10px;">tour</a> <a href="/tags/ubuntu/" style="font-size: 12.5px;">ubuntu</a> <a href="/tags/vultr/" style="font-size: 10px;">vultr</a> <a href="/tags/win10/" style="font-size: 10px;">win10</a> <a href="/tags/windows/" style="font-size: 12.5px;">windows</a> <a href="/tags/wood/" style="font-size: 15px;">wood</a> <a href="/tags/%E5%AE%9E%E4%B9%A0/" style="font-size: 12.5px;">实习</a> <a href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" style="font-size: 10px;">异地恋</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" style="font-size: 12.5px;">智能家居</a> <a href="/tags/%E9%9F%A9%E5%9B%BD/" style="font-size: 10px;">韩国</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/20/20191020/">【智能家居：五】自定义对象及分组</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/20191009/">【智能家居：四】将MQTT设备加入HA平台</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/201910083/">【智能家居：三】小米非网关设备连接</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/201910082/">【智能家居：二】HA添加各平台硬件及中文设置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/20191008/">【智能家居：一】树莓派部署home-assistant平台</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alston<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

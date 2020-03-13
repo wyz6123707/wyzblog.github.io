@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>几十块实现用siri控制家电 | 420X297</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017-07-053月份第一次写这篇文章的时候，还没买树莓派，在这个orangepi上安装的流程和树莓派完全相同，后来用树莓派搞的时候直接就照搬了，一下内容是在orangepi和raspberrypi上安装和配置期间陆陆续续完成的，私以为对linux系统的设备都有参考价值。 在orangepi安装homekit在虚拟机尝试过homebridge之后，大概知道这东西怎么运行了，所以是时候入手一块树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几十块实现用siri控制家电">
+<meta property="og:url" content="http://b.0522.xyz/2017/03/21/034/index.html">
+<meta property="og:site_name" content="420X297">
+<meta property="og:description" content="2017-07-053月份第一次写这篇文章的时候，还没买树莓派，在这个orangepi上安装的流程和树莓派完全相同，后来用树莓派搞的时候直接就照搬了，一下内容是在orangepi和raspberrypi上安装和配置期间陆陆续续完成的，私以为对linux系统的设备都有参考价值。 在orangepi安装homekit在虚拟机尝试过homebridge之后，大概知道这东西怎么运行了，所以是时候入手一块树">
+<meta property="og:image" content="https://ob6zmzrkm.qnssl.com/orangepi1.jpg">
+<meta property="og:image" content="https://ob6zmzrkm.qnssl.com/homebridge111.png">
+<meta property="og:image" content="https://ob6zmzrkm.qnssl.com/homeassistant111.png">
+<meta property="og:image" content="https://ob6zmzrkm.qnssl.com/orangepi2.PNG">
+<meta property="article:published_time" content="2017-03-21T03:06:27.000Z">
+<meta property="article:modified_time" content="2017-07-04T02:33:58.000Z">
+<meta property="article:author" content="Alston">
+<meta property="article:tag" content="homebridge">
+<meta property="article:tag" content="homeassistant">
+<meta property="article:tag" content="homekit">
+<meta property="article:tag" content="智能家居">
+<meta property="article:tag" content="orangepi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ob6zmzrkm.qnssl.com/orangepi1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="420X297" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">420X297</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">间歇性写作综合征资深患者</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://b.0522.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-034" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/21/034/" class="article-date">
+  <time datetime="2017-03-21T03:06:27.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tech/">Tech</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      几十块实现用siri控制家电
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2017-07-05<br>3月份第一次写这篇文章的时候，还没买树莓派，在这个orangepi上安装的流程和树莓派完全相同，后来用树莓派搞的时候直接就照搬了，一下内容是在orangepi和raspberrypi上安装和配置期间陆陆续续完成的，私以为对linux系统的设备都有参考价值。</p>
+<h1 id="在orangepi安装homekit"><a href="#在orangepi安装homekit" class="headerlink" title="在orangepi安装homekit"></a>在orangepi安装homekit</h1><p>在虚拟机尝试过homebridge之后，大概知道这东西怎么运行了，所以是时候入手一块树莓派了。但是树莓派并没有很便宜，我在淘宝找了一晚上，终于找到了orangepi这个东西，只要59块，512内存，H2+的CPU，还支持wifi，跑个homebridge和homeassistant应该问题不大。于是三天后，一块orangepi就到了。</p>
+<p><img src="https://ob6zmzrkm.qnssl.com/orangepi1.jpg" alt=""></p>
+<a id="more"></a>
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>官方下载了ubuntu server的img，用Etcher烧录到tf卡（win下用win32 diskimager）。插上内存卡，插网线，通电。路由器查看ip地址，然后用终端ssh登录到orangepi。</p>
+<blockquote>
+<p>ssh <a href="mailto:root@192.168.2.241">root@192.168.2.241</a> -p 22</p>
+</blockquote>
+<p>然后按照惯例跑一遍</p>
+<blockquote>
+<p>sudo apt-get update<br>sudo apt-get upgrade</p>
+</blockquote>
+<p>其实我也不知道为啥要跑这个，反正所有的教程都有跑这些东西，所以我也跑一边。时间大约20分钟。</p>
+<h1 id="安装homebridge和homeassistant"><a href="#安装homebridge和homeassistant" class="headerlink" title="安装homebridge和homeassistant"></a>安装homebridge和homeassistant</h1><h2 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h2><p>homebridge需要nodejs和npm，nodejs需要curl，还要git，所以：</p>
+<blockquote>
+<p>sudo apt-get install -y samba screen git</p>
+</blockquote>
+<blockquote>
+<p>sudo apt-get install -y curl apt-transport-https ca-certificates<br>curl –fail -ssL -o setup-nodejs <a href="https://deb.nodesource.com/setup_6.x" target="_blank" rel="noopener">https://deb.nodesource.com/setup_6.x</a><br>sudo bash setup-nodejs<br>sudo apt-get install -y nodejs build-essential</p>
+</blockquote>
+<p>另外，homebridge需要avahi依赖包：</p>
+<blockquote>
+<p>sudo apt-get install libavahi-compat-libdnssd-dev</p>
+</blockquote>
+<h2 id="安装homebridge"><a href="#安装homebridge" class="headerlink" title="安装homebridge"></a>安装homebridge</h2><p>根据<a href="https://github.com/nfarina/homebridge" target="_blank" rel="noopener">homebridge的GitHub页面</a> 上的readme，用npm安装</p>
+<blockquote>
+<p>sudo npm install -g –unsafe-perm homebridge</p>
+</blockquote>
+<p>安装可能会失败，失败的话多跑几次就可以了，我就这样弄好的。<br>安装完之后测试一下homebridge能不能正常运行</p>
+<blockquote>
+<p>homebridge</p>
+</blockquote>
+<p>不出意外的话homebridge已经开始运行了，并且会出现homekit的匹配ID<br><img src="https://ob6zmzrkm.qnssl.com/homebridge111.png" alt=""></p>
+<p>control+c退出来，进行下一步。</p>
+<h2 id="安装homeassistant"><a href="#安装homeassistant" class="headerlink" title="安装homeassistant"></a>安装homeassistant</h2><h3 id="安装依赖包-1"><a href="#安装依赖包-1" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><p>homeassistant需要python和pip，python已经是系统集成了的，所以装个pip就行了</p>
+<blockquote>
+<p>sudo apt-get install python3-pip</p>
+</blockquote>
+<h3 id="安装homeassistant-1"><a href="#安装homeassistant-1" class="headerlink" title="安装homeassistant"></a>安装homeassistant</h3><p>根据<a href="https://home-assistant.io/docs/installation/python/" target="_blank" rel="noopener">homeassistant页面</a>上的指南，直接安装就行了</p>
+<blockquote>
+<p>pip3 install homeassistant</p>
+</blockquote>
+<p>安装完成之后打开homeassistant的图形界面：</p>
+<blockquote>
+<p>hass –open-ui</p>
+</blockquote>
+<p>这样才会自动生成一个configuration.yaml文件，如果直接hass的话会因为缺少yaml报错，所以现用以上命令执行一下，之后再用hass就可以了。<br>然后在浏览器打开 <a href="http://localhost:8123/" target="_blank" rel="noopener">http://localhost:8123/</a> 就可以看到homeassistant的控制面板了。</p>
+<p><img src="https://ob6zmzrkm.qnssl.com/homeassistant111.png" alt=""></p>
+<p>control+c退出来，进行下一步。</p>
+<h3 id="安装homebridge-homeassistant插件"><a href="#安装homebridge-homeassistant插件" class="headerlink" title="安装homebridge-homeassistant插件"></a>安装homebridge-homeassistant插件</h3><p>把homebridge和homeassistant链接起来，就需要用到这个插件。</p>
+<blockquote>
+<p>sudo npm install -g homebridge-homeassistant</p>
+</blockquote>
+<h1 id="配置两个插件"><a href="#配置两个插件" class="headerlink" title="配置两个插件"></a>配置两个插件</h1><h2 id="homeassistant连接到broadlink"><a href="#homeassistant连接到broadlink" class="headerlink" title="homeassistant连接到broadlink"></a>homeassistant连接到broadlink</h2><p>在路由器的dhcp服务器上可以看到broadlink的IP和mac地址，复制下来。<br>打开homeassistant的配置文件，把broadlink的设备添加进去。</p>
+<blockquote>
+<p>cd /.homeassistant<br>sudo nano configuration.yaml</p>
+</blockquote>
+<p>然后会打开一个文本编辑器<br>把以下的内容复制到文本编辑器最末端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">switch:</span><br><span class="line">  platform: broadlink</span><br><span class="line">  host: IP_ADDRESS</span><br><span class="line">  mac: &#39;MAC_ADDRESS&#39;</span><br></pre></td></tr></table></figure>
+
+
+<p>这里要补充以下，由于md语法的问题，好像空格不会显示。第一行的switch顶格，以下三行都要缩进两个空格。<br>IP地址和mac就是刚才在DHCP服务器上记录的。</p>
+<p>然后control+x，y，return，退出来就完成了yaml的配置，再打开homeassistant</p>
+<blockquote>
+<p>hass</p>
+</blockquote>
+<p>此时终端上就会显示找到了broadlink设备，再过一会儿homeassistant服务就打开了。</p>
+<h2 id="给homeassistant添加broadlink的红外命令"><a href="#给homeassistant添加broadlink的红外命令" class="headerlink" title="给homeassistant添加broadlink的红外命令"></a>给homeassistant添加broadlink的红外命令</h2><p>再在浏览器打开刚才那个8123的网页，进入homeassistant的控制面板，在左边列表里找到development tools，里面第一个图标就是Call Service，用这个可以学习红外信号的那个码，至于是什么码我也不知道<br>具体操作很简单，我就不多说了。<br>然后会在终端里面看到那个码，复制下来再添加到homeassistant的yaml文件里。<br>最终在yaml里就有broadlink设备的信息和遥控器的命令了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">platform: broadlink</span><br><span class="line">host: IP_ADDRESS</span><br><span class="line">mac: &#39;MAC_ADDRESS&#39;</span><br><span class="line">switches:</span><br><span class="line">  reciever:</span><br><span class="line">    command_on: &#39;switch_packet on&#39;</span><br><span class="line">    command_off: &#39;switch_packet off&#39;</span><br></pre></td></tr></table></figure>
+
+<p>同样是yaml语法，要注意缩进。</p>
+<p>control+x保存并退出，homeassistant的配置文件就编辑好了，再hass的话就可以在homeassistant的控制面板上看到刚才设置的开关了。</p>
+<h2 id="将homebridge连接到homeassistant"><a href="#将homebridge连接到homeassistant" class="headerlink" title="将homebridge连接到homeassistant"></a>将homebridge连接到homeassistant</h2><p>第一次执行homebridge的时候，应该有人注意到缺少config.json文件，所以现在要给homebridge添加一个config.json文件。</p>
+<blockquote>
+<p>cd /.homebridge<br>sudo nano config.json</p>
+</blockquote>
+<p>编辑好以下的文本，复制到nano编辑器中<br>其中 第4行的mac地址要改为开发板的mac地址，13行的host要改为开发板的ip地址：8123</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;bridge&quot;: &#123;</span><br><span class="line">        &quot;name&quot;: &quot;Homebridge&quot;,</span><br><span class="line">        &quot;username&quot;: &quot;AB:CD:EF:12:34:56&quot;,</span><br><span class="line">        &quot;port&quot;: 51826,</span><br><span class="line">        &quot;pin&quot;: &quot;123-45-678&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    &quot;platforms&quot;: [</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;platform&quot;: &quot;HomeAssistant&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;HomeAssistant&quot;,</span><br><span class="line">    &quot;host&quot;: &quot;http:&#x2F;&#x2F;192.168.2.241:8123&quot;,</span><br><span class="line">    &quot;password&quot;: &quot;raspberry&quot;,</span><br><span class="line">    &quot;supported_types&quot;: [&quot;fan&quot;, &quot;garage_door&quot;, &quot;input_boolean&quot;, &quot;light&quot;, &quot;lock&quot;, &quot;media_player&quot;, &quot;rollershutter&quot;, &quot;scene&quot;, &quot;switch&quot;]</span><br><span class="line">  &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制进去直接保存就行了。</p>
+<p>然后运行homebridge</p>
+<blockquote>
+<p>homebridge</p>
+</blockquote>
+<p>应该会卡在homeassistant的步骤，所以要另外开一个终端，运行homeassistant，然后再在这个终端里运行homebridge。</p>
+<p>一番尝试之后，是不是homebridge也运行起来了？</p>
+<h1 id="ios端设置"><a href="#ios端设置" class="headerlink" title="ios端设置"></a>ios端设置</h1><p>在手机上打开homekit的应用”家庭“，然后将homebridge添加到家庭中，接下来的操作就不多说了，太简单了。</p>
+<p><img src="https://ob6zmzrkm.qnssl.com/orangepi2.PNG" alt=""></p>
+<h1 id="设置两个应用的开机自动启动"><a href="#设置两个应用的开机自动启动" class="headerlink" title="设置两个应用的开机自动启动"></a>设置两个应用的开机自动启动</h1><p>2017-03-26 凌晨四点在家里居然成功了。homeassistant的自动启动，按照官方的文本就可以了，但是要等一等……我是真的傻眼了……<br>homebridge通过rc.local实现自启，homeassistant通过init.d方式也实现了。</p>
+<h2 id="homebridge-rc-local"><a href="#homebridge-rc-local" class="headerlink" title="homebridge - rc.local"></a>homebridge - rc.local</h2><p>rc.local确实好用，并且稳定可用。每次树莓派开机都能自动运行hb，但是有一个缺点就是调试的时候十分不方便，killall一下，就没法再启动，所以用init.d来实现开机服务项更加理想。</p>
+<h2 id="homebridge-init-d"><a href="#homebridge-init-d" class="headerlink" title="homebridge - init.d"></a>homebridge - init.d</h2><blockquote>
+<p>sudo nano /etc/init.d/homebridge<br>复制这一段进nano编辑器并保存</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: homebridge</span><br><span class="line"># Required-Start:    $network $remote_fs $syslog</span><br><span class="line"># Required-Stop:     $remote_fs $syslog</span><br><span class="line"># Default-Start:     2 3 4 5</span><br><span class="line"># Default-Stop:      0 1 6</span><br><span class="line"># Short-Description: Start daemon at boot time</span><br><span class="line"># Description:       Enable service provided by daemon.</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line">dir&#x3D;&quot;&#x2F;home&#x2F;pi&quot;</span><br><span class="line">cmd&#x3D;&quot;DEBUG&#x3D;* &#x2F;usr&#x2F;bin&#x2F;homebridge&quot;</span><br><span class="line">user&#x3D;&quot;pi&quot;</span><br></pre></td></tr></table></figure>
+<p>这边提一点，<a href="https://github.com/nfarina/homebridge/wiki/Running-HomeBridge-on-a-Raspberry-Pi" target="_blank" rel="noopener">原文中</a>的这个init.d文件里的cmd=”DEBUG路径，对应的是 /usr/local/bin/homebridge，由于raspbian的文件路径不太相同，所以改为  /usr/bin/homebridge。</p>
+<p>然后赋予权限</p>
+<blockquote>
+<p>sudo chmod 755 /etc/init.d/homebridge<br>然后添加到开机任务<br>sudo update-rc.d homebridge defaults</p>
+</blockquote>
+<p>这样开机启动项就添加完成了，可是手动打开一下</p>
+<blockquote>
+<p>sudo /etc/init.d/homebridge start</p>
+</blockquote>
+<p>同样的，stop/restart也可以实现。<br>检查日志</p>
+<blockquote>
+<p>tail -f /var/log/homebridge.log<br>tail -f /var/log/homebridge.err</p>
+</blockquote>
+<h2 id="homeassistant-init-d"><a href="#homeassistant-init-d" class="headerlink" title="homeassistant -init.d"></a>homeassistant -init.d</h2><p>参考<a href="https://home-assistant.io/docs/autostart/init.d/" target="_blank" rel="noopener">官网文档</a>一次完成，这里不加以赘述</p>
+<hr>
+<p>参考资料<br>·<a href="https://github.com/nfarina/homebridge" target="_blank" rel="noopener">homebridge</a><br>·<a href="https://home-assistant.io/" target="_blank" rel="noopener">homeassistant</a><br>·<a href="http://rogergao.win/2016/11/45/" target="_blank" rel="noopener">老高的博客</a><br>·<a href="https://sspai.com/post/36617?utm_medium=referral&utm_source=tuicool" target="_blank" rel="noopener">借助树莓派与 HomeBridge ，将 YeeLight 彩光灯接入 Apple HomeKit</a><br>·<a href="http://post.m.smzdm.com/p/532100/" target="_blank" rel="noopener">解放你的双手——让普通家电也能被siri控制</a><br><a href="https://github.com/nfarina/homebridge/wiki/Running-HomeBridge-on-a-Raspberry-Pi" target="_blank" rel="noopener">Running HomeBridge on a Raspberry Pi
+</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://b.0522.xyz/2017/03/21/034/" data-id="ck7qj4wxo003qpwwb5bwd5yhk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homeassistant/" rel="tag">homeassistant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebridge/" rel="tag">homebridge</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homekit/" rel="tag">homekit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/orangepi/" rel="tag">orangepi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" rel="tag">智能家居</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/22/035/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          写给自己的orangepi启动指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/14/033/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">“技术白痴的尝试”在linux虚拟机中安装homeassistant和homebridge</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Arch/">Arch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Handmade/">Handmade</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tech/">Tech</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tips/">Tips</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3341/" rel="tag">3341</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/" rel="tag">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apple/" rel="tag">Apple</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chinese/" rel="tag">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Japan/" rel="tag">Japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korea/" rel="tag">Korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Korean/" rel="tag">Korean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/" rel="tag">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MBP/" rel="tag">MBP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Macbook/" rel="tag">Macbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PC/" rel="tag">PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tech/" rel="tag">Tech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yeosu/" rel="tag">Yeosu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinadns/" rel="tag">chinadns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deteil/" rel="tag">deteil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handmade/" rel="tag">handmade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiwifi/" rel="tag">hiwifi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homeassistant/" rel="tag">homeassistant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebridge/" rel="tag">homebridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homekit/" rel="tag">homekit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hotel/" rel="tag">hotel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iPhone/" rel="tag">iPhone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/korea/" rel="tag">korea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lego/" rel="tag">lego</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/momentum/" rel="tag">momentum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nas/" rel="tag">nas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openwrt/" rel="tag">openwrt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/orangepi/" rel="tag">orangepi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruijie/" rel="tag">ruijie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ryzen/" rel="tag">ryzen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sennheiser/" rel="tag">sennheiser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shadowsocks/" rel="tag">shadowsocks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sonos/" rel="tag">sonos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synology/" rel="tag">synology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tour/" rel="tag">tour</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vultr/" rel="tag">vultr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/win10/" rel="tag">win10</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wood/" rel="tag">wood</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E4%B9%A0/" rel="tag">实习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" rel="tag">异地恋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" rel="tag">智能家居</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%A9%E5%9B%BD/" rel="tag">韩国</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/3341/" style="font-size: 12.5px;">3341</a> <a href="/tags/AMD/" style="font-size: 10px;">AMD</a> <a href="/tags/Apple/" style="font-size: 10px;">Apple</a> <a href="/tags/Chinese/" style="font-size: 10px;">Chinese</a> <a href="/tags/Japan/" style="font-size: 10px;">Japan</a> <a href="/tags/Korea/" style="font-size: 15px;">Korea</a> <a href="/tags/Korean/" style="font-size: 15px;">Korean</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/MBP/" style="font-size: 10px;">MBP</a> <a href="/tags/Macbook/" style="font-size: 10px;">Macbook</a> <a href="/tags/PC/" style="font-size: 10px;">PC</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/Yeosu/" style="font-size: 10px;">Yeosu</a> <a href="/tags/arch/" style="font-size: 20px;">arch</a> <a href="/tags/chinadns/" style="font-size: 10px;">chinadns</a> <a href="/tags/deteil/" style="font-size: 10px;">deteil</a> <a href="/tags/handmade/" style="font-size: 15px;">handmade</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/homeassistant/" style="font-size: 20px;">homeassistant</a> <a href="/tags/homebridge/" style="font-size: 17.5px;">homebridge</a> <a href="/tags/homekit/" style="font-size: 15px;">homekit</a> <a href="/tags/hotel/" style="font-size: 10px;">hotel</a> <a href="/tags/iPhone/" style="font-size: 10px;">iPhone</a> <a href="/tags/korea/" style="font-size: 10px;">korea</a> <a href="/tags/lego/" style="font-size: 12.5px;">lego</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/momentum/" style="font-size: 10px;">momentum</a> <a href="/tags/nas/" style="font-size: 12.5px;">nas</a> <a href="/tags/openwrt/" style="font-size: 10px;">openwrt</a> <a href="/tags/orangepi/" style="font-size: 15px;">orangepi</a> <a href="/tags/ruijie/" style="font-size: 10px;">ruijie</a> <a href="/tags/ryzen/" style="font-size: 10px;">ryzen</a> <a href="/tags/sennheiser/" style="font-size: 10px;">sennheiser</a> <a href="/tags/shadowsocks/" style="font-size: 15px;">shadowsocks</a> <a href="/tags/sonos/" style="font-size: 10px;">sonos</a> <a href="/tags/synology/" style="font-size: 12.5px;">synology</a> <a href="/tags/tour/" style="font-size: 10px;">tour</a> <a href="/tags/ubuntu/" style="font-size: 12.5px;">ubuntu</a> <a href="/tags/vultr/" style="font-size: 10px;">vultr</a> <a href="/tags/win10/" style="font-size: 10px;">win10</a> <a href="/tags/windows/" style="font-size: 12.5px;">windows</a> <a href="/tags/wood/" style="font-size: 15px;">wood</a> <a href="/tags/%E5%AE%9E%E4%B9%A0/" style="font-size: 12.5px;">实习</a> <a href="/tags/%E5%BC%82%E5%9C%B0%E6%81%8B/" style="font-size: 10px;">异地恋</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" style="font-size: 12.5px;">智能家居</a> <a href="/tags/%E9%9F%A9%E5%9B%BD/" style="font-size: 10px;">韩国</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/20/20191020/">【智能家居：五】自定义对象及分组</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/20191009/">【智能家居：四】将MQTT设备加入HA平台</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/09/201910083/">【智能家居：三】小米非网关设备连接</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/201910082/">【智能家居：二】HA添加各平台硬件及中文设置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/20191008/">【智能家居：一】树莓派部署home-assistant平台</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alston<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
